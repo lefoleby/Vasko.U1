@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Vasko</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/Vasko.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <!-- Панель навигации -->
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <!-- меню сайта -->
+               <partial name="_MenuPartial" />
+                <!-- меню сайта - конец -->
+                <!-- Информация пользователя -->
+              <partial name="_UserInfoPartial" />
+                <!-- Информация пользователя - конец -->
+            </nav> <!-- Панель навигации - конец -->
+        </div><!-- container - конец -->
+    </header><!-- header - конец -->
+
+   
+
+    <main class="container">
+        <h2 class="mt-3 mb-3">Лабораторная работа 1</h2>
+
+        <h4>Список</h4>
+        <ol type="A" class="mb-4">
+            <li>элемент 0 списка</li>
+            <li>элемент 1 списка</li>
+            <li>элемент 2 списка</li>
+            <li>элемент 3 списка</li>
+            <li>элемент 4 списка</li>
+        </ol>
+
+        <h4>Форма</h4>
+        <form method="post" action="#">
+            <div class="row mb-3">
+                <legend class="col-form-label col-sm-2 pt-0">Чек-боксы / Радио</legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="check1" id="check1">
+                        <label class="form-check-label" for="check1">Чек-бокс 1</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="check2" id="check2">
+                        <label class="form-check-label" for="check2">Чек-бокс 2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="radioGroup" id="radio1" value="radio1" checked>
+                        <label class="form-check-label" for="radio1">Радио-1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="radioGroup" id="radio2" value="radio2">
+                        <label class="form-check-label" for="radio2">Радио-2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="radioGroup" id="radio3" value="radio3">
+                        <label class="form-check-label" for="radio3">Радио-3</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="login" class="col-sm-2 col-form-label">Логин</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="login" id="login" placeholder="Введите имя">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="password" class="col-sm-2 col-form-label">Пароль</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Введите пароль">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </div>
+            </div>
+        </form>
+
+        @RenderBody()
+    </main>
+
+
+    <footer>
+        <div class="container">
+            <div class="navbar navbar-dark navbar-expand-md bg-dark">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-item nav-link" href="http://www.facebook.com">
+                        <i class="fa-brands fa-facebook-f fa-2x"></i>
+                    </a>
+                    <a class="nav-item nav-link" href="http://www.vk.com">
+                        <i class="fa-brands fa-vk fa-2x"></i>
+                    </a>
+                    <a class="nav-item nav-link" href="http://www.twitter.com">
+                        <i class="fa-brands fa-twitter fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

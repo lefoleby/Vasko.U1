@@ -1,0 +1,36 @@
+﻿@model Vasko.U1.Domain.Entities.Dish
+@using Vasko.U1.Domain.Entities
+
+@{
+    var request = ViewContext.HttpContext.Request;
+    var returnUrl = request.Path + request.QueryString.ToUriComponent();
+}
+
+<div class="col-4 p-4">
+    <div class="card border-dark m-2 h-100">
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            <img class="card-img-top" src="@Model.Image" alt="@Model.Name" style="height: 200px; object-fit: cover;" />
+        }
+        else
+        {
+            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                <span class="text-muted">Нет изображения</span>
+            </div>
+        }
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-text">@Model.Description</p>
+            <h5><span class="badge bg-secondary">@Model.Calories калорий</span></h5>
+        </div>
+        <div class="card-footer text-center">
+            <a class="btn btn-outline-primary"
+               asp-action="add"
+               asp-controller="cart"
+               asp-route-id="@Model.Id"
+               asp-route-returnurl="@returnUrl">
+                Add to cart <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+        </div>
+    </div>
+</div>

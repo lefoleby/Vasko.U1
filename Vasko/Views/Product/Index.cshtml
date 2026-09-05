@@ -1,0 +1,99 @@
+﻿@model Vasko.U1.Domain.Models.ListModel<Vasko.U1.Domain.Entities.Dish>
+@using Vasko.U1.Domain.Entities
+
+@{
+    ViewData["Title"] = "Каталог блюд";
+    var request = ViewContext.HttpContext.Request;
+    var returnUrl = request.Path + request.QueryString.ToUriComponent();
+    var categories = ViewData["categories"] as List<Category>;
+    var currentCategory = ViewData["currentCategory"]?.ToString() ?? "Все";
+    var errorMessage = ViewData["Error"]?.ToString();
+
+    // Получаем имя категории из запроса
+    string? category = request.RouteValues["category"]?.ToString();
+
+    // Определяем номера предыдущей и следующей страницы
+    int prev = Model.CurrentPage == 1 ? 1 : Model.CurrentPage - 1;
+    int next = Model.CurrentPage == Model.TotalPages ? Model.TotalPages : Model.CurrentPage + 1;
+}
+
+<h2 class="m-3">Блюда дня</h2>
+
+<div class="row">
+    <!-- Блок фильтрации по категориям -->
+    <div class="col-2 border-2">
+        <ul class="nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"
+                   data-bs-toggle="dropdown"
+                   href="#"
+                   role="button"
+                   aria-expanded="false">
+                    @currentCategory
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item"
+                           asp-controller="Product"
+                           asp-route-category=@null
+                           asp-route-pageNo="1">Все</a>
+                    </li>
+                    @if (categories != null)
+                    {
+                        @foreach (var item in categories)
+                        {
+                            <li>
+                                <a class="dropdown-item"
+                                   asp-controller="Product"
+                                   asp-route-category="@item.NormalizedName"
+                                   asp-route-pageNo="1">
+                                    @item.Name
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Список блюд в виде карточек (с использованием частичного представления) -->
+@*     @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <h2 class="text-warning">@errorMessage</h2>
+    }
+    else if (Model != null && Model.Items != null && Model.Items.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var item in Model.Items)
+            {
+                <partial name="_ProductItemPartial" model="item" />
+            }
+        </div>
+    }
+    else
+    {
+        <p>Нет блюд для отображения</p>
+    }
+</div> *@
+
+  <!-- Список блюд в виде карточек (с использованием частичного представления) -->
+    @if (Model != null)
+    {
+        <div class="card-group">
+            @foreach (var item in Model.Items)
+            {
+                <partial name="_ProductItemPartial" model="item" />
+            }
+        </div>
+    }
+</div>  <!
+
+<!-- Пейджер с использованием кастомного тэг-хелпера -->
+<pager current-page="@Model.CurrentPage"
+       total-pages="@Model.TotalPages"
+       action="Index"
+       controller="Product"
+       category="@category"></pager>
+
+<h2 class="text-warning">@errorMessage</h2>

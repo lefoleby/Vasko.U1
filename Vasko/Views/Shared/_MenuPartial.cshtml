@@ -1,0 +1,20 @@
+﻿@{
+    var controller = ViewContext.RouteData.Values["controller"]?
+    .ToString() ?
+    .ToLower()
+?? String.Empty;
+    var area = ViewContext.RouteData.Values["area"]?
+        .ToString()?
+        .ToLower()
+    ?? String.Empty;
+}
+
+<a class="navbar-brand" asp-action="index" asp-controller="home">WebLabsV03</a>
+<div class="navbar-nav">
+    <a class="nav-item nav-link @(controller=="home"? "active":"")"
+       asp-action="index" asp-controller="home">Лб 1</a>
+    <a class="nav-item nav-link @(controller=="product"? "active": "") "
+    asp-action="index" asp-controller="product">Каталог</a>
+    <a class="nav-item nav-link @(area=="admin"? "active": "")"
+    asp-area="Admin" asp-page="/index">Администрирование</a>
+</div>

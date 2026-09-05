@@ -1,0 +1,36 @@
+﻿@page "/products"
+@rendermode Microsoft.AspNetCore.Components.Web.RenderMode.InteractiveServer
+
+
+@using Vasko.Blazor.Services
+@using Vasko.U1.Domain.Entities
+@using Vasko.Blazor.Components.ProductComponents
+
+<PageTitle>Список блюд</PageTitle>
+
+<h3>Блюда дня</h3>
+
+<CascadingValue Value="ProductService">
+    <ProductsList DishSelected="ShowDetails" />
+    <Pager />
+</CascadingValue>
+
+<ProductDetails Dish="SelectedDish" />
+
+@code {
+    [Inject] 
+    IProductService<Dish> ProductService { get; set; }
+
+    [Parameter]
+    public Dish SelectedDish { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ProductService.GetProducts();
+    }
+
+    void ShowDetails(int id)
+    {
+        SelectedDish = ProductService.Products.First(d => d.Id == id);
+    }
+}
